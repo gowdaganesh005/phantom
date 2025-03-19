@@ -14,11 +14,16 @@ const db_1 = require("../utils/db");
 const router = (0, express_1.Router)();
 router.post("/login", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { userId, name, email } = req.body;
-    if (userId && name && email) {
+    if (!userId || !name || !email) {
+        return res.status(400).json({
+            message: "Failed Login"
+        });
+    }
+    try {
         const response = yield db_1.prisma.user.upsert({
             where: {
-                userId: userId,
-                email: email
+                userId: userId, // Ensure this field exists in your schema
+                email: email // Prisma does not allow multiple unique fields in `where`
             },
             update: {
                 name: name,
@@ -30,8 +35,8 @@ router.post("/login", (req, res) => __awaiter(void 0, void 0, void 0, function* 
             }
         });
         if (response) {
-            return res.json(200).json({
-                message: "Login Successfull"
+            return res.status(200).json({
+                message: "Login Successful"
             });
         }
         else {
@@ -40,10 +45,9 @@ router.post("/login", (req, res) => __awaiter(void 0, void 0, void 0, function* 
             });
         }
     }
-    else {
-        return res.status(400).json({
-            message: "Failed Login"
-        });
+    catch (error) {
+        console.error("Database error:", error);
+        return res.status(500).json({ message: "Internal Server Error", error });
     }
 }));
 exports.default = router;
