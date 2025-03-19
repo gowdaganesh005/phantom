@@ -10,7 +10,7 @@ export function Summary() {
     const videoId = searchParams.get("videoId");
 
     async function fetch() {
-        const res = await axios.post("http://localhost:3000/getVideo", {
+        const res = await axios.post("https://phantom-server.hashdev.me/getVideo", {
             videoId: videoId
         });
         setVideoInfo(res.data.data);

@@ -27,7 +27,7 @@ const Dashboard = () => {
     try {
       setRefreshing(true);
       const token = await user.getIdToken();
-      const response = await axios.get("http://localhost:3000/getAll", {
+      const response = await axios.get("https://phantom-server.hashdev.me/getAll", {
         headers: {
           Authorization: `Bearer ${token}`,
         },

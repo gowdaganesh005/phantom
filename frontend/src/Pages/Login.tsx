@@ -19,7 +19,7 @@ export function Login() {
           const user = result?.user;
       
           if (user) {
-            const res = await axios.post("http://localhost:3000/login", {
+            const res = await axios.post("https://phantom-server.hashdev.me/login", {
               userId: user.uid,
               name: user.displayName,
               email: user.email,

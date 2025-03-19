@@ -19,7 +19,7 @@ export function AddMeetingLink() {
     setIsLoading(true);
 
     try {
-      const res = await axios.post("http://localhost:3000/create-bot", {
+      const res = await axios.post("https://phantom-server.hashdev.me/create-bot", {
         meetLink: link,
       },{headers:{
         Authorization: `Bearer ${await user?.getIdToken()}`
