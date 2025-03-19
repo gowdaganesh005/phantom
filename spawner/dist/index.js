@@ -3,7 +3,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const bullmq_1 = require("bullmq");
 const child_process_1 = require("child_process");
 const QUEUE_NAME = "BotQueue";
-const connection = { host: "localhost", port: 6379 }; // Ensure Redis is running
+const connection = { host: "localhost", port: 6379 };
 const worker = new bullmq_1.Worker(QUEUE_NAME, async (job) => {
     console.log(`🚀 Processing job: ${job.id} | Data:`, job.data);
     const { userId, meetLink } = job.data;
@@ -18,7 +18,6 @@ const worker = new bullmq_1.Worker(QUEUE_NAME, async (job) => {
     botProcess.on("close", (code) => console.log(`✅ Bot process exited with code ${code}`));
 }, {
     connection,
-    // Wait 5 seconds before retrying
 });
 worker.on("failed", (job, err) => console.error(`🔥 Job ${job === null || job === void 0 ? void 0 : job.id} failed: ${err.message}`));
 console.log(`👷 Worker listening on queue "${QUEUE_NAME}"...`);

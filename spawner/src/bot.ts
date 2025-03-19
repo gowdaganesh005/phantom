@@ -8,6 +8,7 @@ import { upload } from './utils/upload';
 import { prisma } from './utils/db';
 import { AssemblyAI } from 'assemblyai';
 import { RequestForSummary } from './utils/gemini';
+import { spawn } from "child_process"
 
 
 
@@ -133,14 +134,15 @@ async function openMeet(driver: WebDriver,meetLink:string) {
 }
 
 async function getDriver() {
-    // const xvfbProcess = spawn('Xvfb', [':99', '-screen', '0', '1920x1080x24', '-ac']);
-    // process.env.DISPLAY=':99'
+    const xvfbProcess = spawn('Xvfb', [':99', '-screen', '0', '1920x1080x24', '-ac']);
+    process.env.DISPLAY=':99'
     await new Promise(resolve => setTimeout(resolve, 1000));
 
     const options = new firefox.Options();
 
   
   // Optional: Set window size
+    options.setBinary("/home/ubuntu/firefox/firefox-bin");
     options.addArguments('--width=1920');
     options.addArguments('--height=1080');
     
@@ -186,7 +188,7 @@ async function getDriver() {
     //     'profile.default_content_setting_values.cookies': 1
     // });
 
-    options.setProfile("C:/Users/Ganesh/Documents/Phantom")
+    options.setProfile("/home/ubuntu/phantom")
 
     
     options.setPreference("browser.download.folderList", 2)

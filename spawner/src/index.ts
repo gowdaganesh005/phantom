@@ -2,7 +2,7 @@ import { Worker } from "bullmq";
 import { spawn } from "child_process";
 
 const QUEUE_NAME = "BotQueue";
-const connection = { host: "localhost", port: 6379 }; // Ensure Redis is running
+const connection = { host: "localhost", port: 6379 }; 
 
 const worker = new Worker(
   QUEUE_NAME,
@@ -25,7 +25,7 @@ const worker = new Worker(
   },
   {
     connection,
-     // Wait 5 seconds before retrying
+     
   }
 );
 
