@@ -1,8 +1,12 @@
-## AI Meeting Assistant
+<img src="https://github.com/user-attachments/assets/a4c543d5-2d20-4c69-9526-cbdeb24f0274" alt="Alt Text" width="300">
+
+# Phantom AI Meeting Assistant
 
 A powerful web application that enhances your Google Meet experience with AI-powered recording, transcription, and summarization capabilities.
 
-![AI Meeting Assistant Logo](https://drive.google.com/file/d/1bkkKVSoGrwt4vZ3rcW1HLmW5IbTbHfHr/view?usp=sharing)
+
+[Watch the Demo Video](https://drive.google.com/file/d/17ik8GVz3i1yxNslyCPxqTLHzAspKPmqS/view?usp=sharing)
+
 
 ## Features
 
@@ -13,6 +17,8 @@ A powerful web application that enhances your Google Meet experience with AI-pow
 - **Smart Summarization**: Generate concise meeting summaries
 - **Action Item Extraction**: Automatically identify and compile action items from your meeting
 - **Easy Sharing**: Share meeting insights with team members who couldn't attend
+
+
 
 
 
