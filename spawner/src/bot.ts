@@ -191,10 +191,7 @@ async function getDriver() {
     options.setProfile("/home/ubuntu/phantom")
 
     
-    options.setPreference("browser.download.folderList", 2)
-    options.setPreference("browser.download.manager.showWhenStarting", false)
-    options.setPreference("browser.download.useDownloadDir", true)
-    options.setPreference("browser.download.dir","/public" )
+   
     
 
     options.addArguments("--disable-blink-features=AutomationControlled");
@@ -334,7 +331,7 @@ async function startScreenShare(driver:WebDriver, meetLink:string) {
 
 async function uploadToDB(meetLink:string,userId:string){
     meetLink = meetLink.slice(24);
-    const filePath = `C:/Users/Ganesh/Downloads/${meetLink}.webm`;
+    const filePath = `/home/ubuntu/Downloads/${meetLink}.webm`;
 
     // Retry mechanism with a delay
         const videoId = `${meetLink}-${Date.now()}`
