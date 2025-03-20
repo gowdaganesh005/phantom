@@ -9,6 +9,8 @@ import { prisma } from './utils/db';
 import { AssemblyAI } from 'assemblyai';
 import { RequestForSummary } from './utils/gemini';
 import { spawn } from "child_process"
+import fs from 'fs'
+import path from 'path'
 
 
 
@@ -58,7 +60,36 @@ async function watchMeeting(driver:WebDriver,meetLink:string){
         await new Promise(resolve => setTimeout(resolve,5*1000))
     }
 
+
+
 }
+
+
+function cleanFirefoxProfile() {
+    const profilePath = '/home/ubuntu/phantom';
+    try {
+      // Check if profile directory exists
+      if (fs.existsSync(profilePath)) {
+        // Remove lock files
+        const lockFiles = ['lock', '.parentlock', 'parent.lock'];
+        lockFiles.forEach(file => {
+          const lockPath = path.join(profilePath, file);
+          if (fs.existsSync(lockPath)) {
+            fs.unlinkSync(lockPath);
+            console.log(`Removed lock file: ${lockPath}`);
+            fs.openSync('lock','w')
+          }
+        });
+      } else {
+        console.log(`Profile directory doesn't exist: ${profilePath}`);
+        // Create the directory
+        fs.mkdirSync(profilePath, { recursive: true });
+        console.log(`Created profile directory: ${profilePath}`);
+      }
+    } catch (error) {
+      console.error('Error cleaning Firefox profile:', error);
+    }
+  }
 
 async function openMeet(driver: WebDriver,meetLink:string) {
     try {
@@ -134,6 +165,7 @@ async function openMeet(driver: WebDriver,meetLink:string) {
 }
 
 async function getDriver() {
+    cleanFirefoxProfile()
     const xvfbProcess = spawn('Xvfb', [':99', '-screen', '0', '1920x1080x24', '-ac']);
     process.env.DISPLAY=':99'
     await new Promise(resolve => setTimeout(resolve, 1000));
