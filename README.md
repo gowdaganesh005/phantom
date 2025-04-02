@@ -5,7 +5,7 @@
 A powerful web application that enhances your Google Meet experience with AI-powered recording, transcription, and summarization capabilities.
 
 
-[Watch the Demo Video](https://drive.google.com/file/d/17ik8GVz3i1yxNslyCPxqTLHzAspKPmqS/view?usp=sharing)
+[Watch the Demo Video](https://drive.google.com/file/d/1Zsly42sa6bwqNhVlRBqHOvgLkSCS94nR/view?usp=sharing)
 
 
 ## Features
