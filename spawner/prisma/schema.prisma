@@ -26,11 +26,9 @@ model Videos{
   userId String
   videoId String @unique
   videoLink  String 
-  thumbnailUrl String
-  audioUrl  String
   created_at DateTime @default(now())
   summary String?
   transcript String?
-  updated_at DateTime @updatedAt
+  updated_at DateTime @updatedAt
 
 }
