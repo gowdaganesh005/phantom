@@ -17,13 +17,13 @@ import path from 'path'
 async function checkMeetingStatus(driver:WebDriver){
     try{
         
-        const NumOfMemebers =await driver.wait(until.elementLocated(By.xpath('/html/body/div[1]/c-wiz/div/div/div[36]/div[4]/div[10]/div/div/div[3]/nav/div[2]/div/div/div')),10*1000)
+        const NumOfMemebers =await driver.wait(until.elementLocated(By.xpath('/html/body/div[1]/c-wiz/div/div/div[63]/div[3]/div/div[7]/div/div/div[3]/nav/div[2]/div/div/div')),10*1000)
         let text = await NumOfMemebers.getText();
         let intValue = parseInt(text.trim(),10);
         console.log(intValue.toString())
         if(intValue==1){
             await new Promise(resolve => setTimeout(resolve,10*1000))
-            const NumOfMemebers2 =await driver.wait(until.elementLocated(By.xpath('/html/body/div[1]/c-wiz/div/div/div[36]/div[4]/div[10]/div/div/div[3]/nav/div[2]/div/div/div')),10*1000)
+            const NumOfMemebers2 =await driver.wait(until.elementLocated(By.xpath('/html/body/div[1]/c-wiz/div/div/div[63]/div[3]/div/div[7]/div/div/div[3]/nav/div[2]/div/div/div')),10*1000)
             let text2 = await NumOfMemebers2.getText();
             let intValue2 = parseInt(text2.trim(),10);
             if(intValue2==1) return false
@@ -65,92 +65,22 @@ async function watchMeeting(driver:WebDriver,meetLink:string){
 }
 
 
-function cleanFirefoxProfile() {
-    const profilePath = '/home/ubuntu/phantom';
-    try {
-      // Check if profile directory exists
-      if (fs.existsSync(profilePath)) {
-        // Remove lock files
-        const lockFiles = ['lock', '.parentlock', 'parent.lock'];
-        lockFiles.forEach(file => {
-          const lockPath = path.join(profilePath, file);
-          if (fs.existsSync(lockPath)) {
-            fs.unlinkSync(lockPath);
-            console.log(`Removed lock file: ${lockPath}`);
-            fs.openSync('lock','w')
-          }
-        });
-      } else {
-        console.log(`Profile directory doesn't exist: ${profilePath}`);
-        // Create the directory
-        fs.mkdirSync(profilePath, { recursive: true });
-        console.log(`Created profile directory: ${profilePath}`);
-      }
-    } catch (error) {
-      console.error('Error cleaning Firefox profile:', error);
-    }
-  }
 
 async function openMeet(driver: WebDriver,meetLink:string) {
     try {
         await driver.get(meetLink);
         await driver.sleep(5000);  // Allow page to fully lgshoad
 
-        // try {
-        //     const continueBtn = await driver.wait(
-        //         until.elementLocated(By.xpath('/html/body/div[2]/div[3]/div[2]/div/div/div/div/div[2]/div/div[2]/button')),
-        //         10000
-        //     )
-        //     await continueBtn.click()
-        // } catch (error) {
-        //     console.log(error)
-        // }
-
-        // const micButton = await driver.wait(
-        //     until.elementLocated(By.xpath('/html/body/div[1]/c-wiz/div/div/div[38]/div[4]/div/div[2]/div[4]/div/div/div[1]/div[1]/div/div[6]/div[1]')),
-        //     40000
-        // )
-        // await micButton.click()
-        // await driver.sleep(2000+100*Math.random())
-
-        // const videoButton = await driver.wait(
-        //     until.elementLocated(By.xpath('/html/body/div[1]/c-wiz/div/div/div[38]/div[4]/div/div[2]/div[4]/div/div/div[1]/div[1]/div/div[6]/div[2]')),
-        //     40000
-        // )
-        // await videoButton.click()
-        // await driver.sleep(1000+100*Math.random())
-
         
-        // const gotit = await driver.wait(
-        //     until.elementLocated(By.xpath('/html/body/div[1]/div[3]/span/div[2]/div/div/div[2]/div/button')), 
-        //     30000
-        // );
-        // await gotit.click();
-        // await driver.sleep(1500+100*Math.random())
-        
-        // const inputbtn = await driver.wait(
-        //     until.elementLocated(By.xpath('/html/body/div[1]/c-wiz/div/div/div[38]/div[4]/div/div[2]/div[4]/div/div/div[2]/div[1]/div[1]/div[3]/div[1]/span[2]/input')),
-        //     30000
-        // );
-        // await inputbtn.click();
-        // await inputbtn.sendKeys("Phantom Bot");
         await driver.sleep(2500+100*Math.random())
         
         const askToJoin = await driver.wait(
-            until.elementLocated(By.xpath('/html/body/div[1]/c-wiz/div/div/div[38]/div[4]/div/div[2]/div[4]/div/div/div[2]/div[1]/div[2]/div[1]/div/div/div/button')),
+            until.elementLocated(By.xpath('/html/body/div[1]/c-wiz/div/div/div[65]/div[3]/div/div[2]/div[4]/div[1]/div/div[2]/div[1]/div[2]/div[1]/div/div/span/div[1]/button')),
             300000
         );
         await askToJoin.click();
 
-        // try {
-        //     const gotit2 = await driver.wait(
-        //         until.elementLocated(By.xpath('/html/body/div[1]/div[3]/span/div[2]/div/div/div[2]/div[2]/button')),
-        //         1*60*1000
-        //     )
-        //     gotit2.click()
-        // } catch (error) {
-        //     console.log("Error in the finding Got It button ",error)
-        // }
+        
         await driver.sleep(2500+100*Math.random())
 
         await driver.executeScript(`
@@ -165,16 +95,17 @@ async function openMeet(driver: WebDriver,meetLink:string) {
 }
 
 async function getDriver() {
-    cleanFirefoxProfile()
-    const xvfbProcess = spawn('Xvfb', [':99', '-screen', '0', '1920x1080x24', '-ac']);
-    process.env.DISPLAY=':99'
+    
+    // const xvfbProcess = spawn('Xvfb', [':99', '-screen', '0', '1920x1080x24', '-ac']);
+    // process.env.DISPLAY=':99'
+
     await new Promise(resolve => setTimeout(resolve, 1000));
 
     const options = new firefox.Options();
 
   
   // Optional: Set window size
-    options.setBinary("/home/ubuntu/firefox/firefox-bin");
+    // options.setBinary("/home/ubuntu/firefox/firefox-bin");
     options.addArguments('--width=1920');
     options.addArguments('--height=1080');
     
@@ -220,7 +151,7 @@ async function getDriver() {
     //     'profile.default_content_setting_values.cookies': 1
     // });
 
-    options.setProfile("/home/ubuntu/phantom")
+    options.setProfile("C:/Users/Ganesh/Desktop/VVIET/phantomV1/ffprofile")
 
     
    
@@ -271,15 +202,13 @@ async function startScreenShare(driver:WebDriver, meetLink:string) {
     meetLink = meetLink.slice(24)
     console.log(meetLink)
     try {
-        await driver.executeScript(`
-            (function() {
-                console.log("Initializing screen recording");
-                
+        await driver.executeAsyncScript(`
+            (function() {                
                 let globalRecorder = null;
                 let recordedChunks = [];
                 
                 function startRecording(stream) {
-                    console.log("Recording started with stream", stream);
+                    
                     const recording = document.createElement('video');
                     const downloadButton = document.createElement('a');
                     let recorder = new MediaRecorder(stream);
@@ -287,7 +216,7 @@ async function startScreenShare(driver:WebDriver, meetLink:string) {
                     window.globalRecorder = recorder;
                     
                     recorder.ondataavailable = (event) => {
-                        console.log("Data available", event);
+                        
                         recordedChunks.push(event.data);
                     };
                     recorder.start(1000);
@@ -306,24 +235,23 @@ async function startScreenShare(driver:WebDriver, meetLink:string) {
                     };
                 }
                 
-                console.log("Requesting display media");
+                
                 
                 navigator.mediaDevices.getDisplayMedia({ video: true })
                 .then(screenStream => {
-                    console.log("Got screen stream", screenStream);
+                    
                     
                     const audioElements = document.querySelectorAll('audio');
-                    console.log("Audio elements:", audioElements);
                     
                     if (audioElements.length > 0 && audioElements[0].srcObject) {
                         const audioTracks = audioElements[0].srcObject.getAudioTracks();
-                        console.log("Audio tracks:", audioTracks);
+                        
                         
                         const combinedStream = new MediaStream();
                         screenStream.getTracks().forEach(track => combinedStream.addTrack(track));
                         audioTracks.forEach(track => combinedStream.addTrack(track));
                         
-                        console.log("Combined stream created", combinedStream);
+                        
                         startRecording(combinedStream);
                         
                         combinedStream.getTracks().forEach(track => {
@@ -349,7 +277,6 @@ async function startScreenShare(driver:WebDriver, meetLink:string) {
                     }
                 })
                 .catch(error => {
-                    console.error("Error getting display media:", error);
                 });
             })();
         `);
@@ -361,78 +288,77 @@ async function startScreenShare(driver:WebDriver, meetLink:string) {
 }
 
 
-async function uploadToDB(meetLink:string,userId:string){
-    meetLink = meetLink.slice(24);
-    const filePath = `/home/ubuntu/Downloads/${meetLink}.webm`;
-
-    // Retry mechanism with a delay
-        const videoId = `${meetLink}-${Date.now()}`
-    
-        const { mp4Url, thumbnailUrl,audioUrl } = await upload(filePath, videoId);
+async function uploadToDB(meetLink: string, userId: string) {
+    try {
+        meetLink = meetLink.slice(24);
+        const filePath = C:/Users/Ganesh/Downloads/${meetLink}.webm;
+        const videoId = ${meetLink}-${Date.now()};
         
-        if(mp4Url){
-            const uploadData = await prisma.videos.create({
-                data:{
-                    userId:userId,
-                    videoId:videoId,
-                    videoLink:mp4Url,
-                    thumbnailUrl:thumbnailUrl,
-              
-                    audioUrl: audioUrl
-                }
-            })
-            console.log(uploadData)
-
-            const assmClient = new AssemblyAI({
-                apiKey: process.env.ASSEMBLY_KEY || ""
-            })
-
-            const data ={
-                audio: audioUrl
-            }
-            
-            const transcript = await assmClient.transcripts.transcribe(data)
-            console.log(transcript.text)
-            
-            const contents = [
-                {
-                    role:'user',
-                    parts:[
-                        {
-                            text:transcript.text
-                        }
-                    ]
-                }
-            ]
-
-            const summary = await RequestForSummary(contents)
-
-            console.log(summary)
-
-            try {
-                await prisma.videos.update({
-                    where:{
-                        videoId:videoId
-                    },
-                    data:{
-                        summary:summary,
-                        transcript:transcript.text 
-                    }
-                })
-            } catch (error:any) {
-                console.log(error.message)
-            }
-
-            
-
-        }else{
-            console.log("Error in processing the videos")
+        console.log(Processing video: ${meetLink});
+        console.log(File path: ${filePath});
+        
+        // Check if file exists
+        if (!fs.existsSync(filePath)) {
+            console.error(File not found: ${filePath});
+            return { success: false, error: "File not found" };
         }
 
-        
+        const mp4Url = await upload(filePath,videoId);
         
 
-    
+        
+        // Save initial video data to database
+        const uploadData = await prisma.videos.create({
+            data: {
+                userId: userId,
+                videoId: videoId,
+                videoLink: mp4Url || "",
+                
+            }
+        });
+        console.log("Video data saved:", uploadData.videoId);
+        
+        console.log("Setting up AssemblyAI client...");
+        const assmClient = new AssemblyAI({
+            apiKey: process.env.ASSEMBLY_KEY || ""
+        });
+        
+        // Submit audio for transcription
+        const data = { audio: mp4Url || "" };
+        console.log("Submitting for transcription:", mp4Url);
+        
+        const transcript = await assmClient.transcripts.transcribe(data);
+        
+        if (!transcript || !transcript.text) {
+            console.error("Transcription failed or returned empty");
+            return { success: false, error: "Transcription failed" };
+        }
+        
+        console.log("Transcription completed successfully");
+        
+        const contents = transcript.text
+        
+        // Get 
+        console.log("Requesting summary...");
+        const summary = await RequestForSummary(contents);
+        console.log("Summary generated");
+        
+        // Update database with transcript and summary
+        await prisma.videos.update({
+            where: { videoId: videoId },
+            data: {
+                summary: summary,
+                transcript: transcript.text
+            }
+        });
+        
+        console.log("Database updated with transcript and summary");
+        return { success: true, videoId };
+        
+    } catch (error: any) {
+        console.error("Error in uploadToDB:", error.message);
+        return { success: false, error: error.message };
+    }
 }
 
 
@@ -444,6 +370,7 @@ async function main() {
     const userId  = args[1]
 
     console.log(userId)
+    console.log(meetLink)
 
     let driver: WebDriver | null = null;
     try {
@@ -470,10 +397,7 @@ async function main() {
             }
             await driver.quit();
         }
-    }
+    }
 }
 
 main();
-
-
-
